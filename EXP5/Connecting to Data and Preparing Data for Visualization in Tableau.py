@@ -1,59 +1,43 @@
-##Experiment No. 5
-#Connecting to Data and Preparing Data for Visualization in Tableau
+##Experiment No.6
+Data Aggregation and Statistical Functions in Tableau
 
 //Aim:
-To link Tableau with a data source and get the data ready for building visualizations.
-                                                       
+To carry out data aggregation and use statistical functions in Tableau to analyze data more effectively.
+
 //Description:
-This program prepares a sales dataset for Tableau using Python's pandas library. 
-It loads the CSV file, previews the first five records and counts missing values in each column.
-It then removes duplicate rows, converts the Sales column to a numeric type and saves the cleaned data to a new CSV file. 
-That file can then be imported into Tableau for visualization.
+This program uses Python's pandas library to perform the same aggregations that Tableau does.
+It loads the sales data from a CSV file and calculates the total, average, minimum and maximum of the Sales column.
+It then groups the records by Category and finds the total sales for each one. 
+The results show how the data is summarized before it is visualized in Tableau.
 
 //Algorithm:
 1.Launch Tableau Public.
-2.Choose the data source you need.
-3.Load the dataset into Tableau.
-4.Check that the data loaded correctly.
-5.Do basic cleaning (handle missing values, remove duplicates, fix data types).
-6.Save the workbook.
+2.Connect to the dataset.
+3.Drag the needed fields onto Rows and Columns.
+4.Apply aggregation functions (SUM, AVG, MIN, MAX) to the measures.
+5.Use statistical measures to summarize the data.
+6.Study the results and save the workbook.
 
-//program:
+//Program (Python):
 import pandas as pd
 df = pd.read_csv("SalesData.csv")
-print(df.head())
-print(df.isnull().sum())
-df = df.drop_duplicates()
-df["Sales"] = pd.to_numeric(df["Sales"])
-df.to_csv("cleaned_sales_data.csv", index=False)
-print("Dataset cleaned and ready for Tableau.")
+print("Total Sales:", df["Sales"].sum())
+print("Average Sales:", df["Sales"].mean())
+print("Minimum Sales:", df["Sales"].min())
+print("Maximum Sales:", df["Sales"].max())
+print("\nSales by Category:")
+print(df.groupby("Category")["Sales"].sum())
 
+//Total Sales: 115000
+Average Sales: 19166.666666666668
+Minimum Sales: 3000
+Maximum Sales: 55000
 
-//Sample CSV File (SalesData.csv):
-OrderID,Product,Category,Sales,Quantity,Region
-101,Laptop,Electronics,55000,2,South
-102,Mobile,Electronics,20000,3,North
-103,Chair,Furniture,5000,5,West
-104,Table,Furniture,7000,2,East
-105,Headphones,Electronics,3000,4,South
-106,Sofa,Furniture,25000,1,North
-
-//sample output:
-     OrderID     Product     Category  Sales  Quantity Region
-0      101      Laptop  Electronics  55000         2  South
-1      102      Mobile  Electronics  20000         3  North
-2      103       Chair    Furniture   5000         5   West
-3      104       Table    Furniture   7000         2   East
-4      105  Headphones  Electronics   3000         4  South
-OrderID     0
-Product     0
-Category    0
-Sales       0
-Quantity    0
-Region      0
-dtype: int64
-Dataset cleaned and ready for Tableau.
+Sales by Category:
+Category
+Electronics    78000
+Furniture      37000
+Name: Sales, dtype: int64
 
 //Result:
-The dataset was successfully connected to Tableau, cleaned using Python (checked for missing values, removed duplicates and converted Sales to a numeric type), and saved as cleaned_sales_data.csv.
-The data is now prepared and ready for creating visualizations in Tableau.
+Thus, data aggregation and statistical functions were successfully applied to the sales dataset, giving the total, average, minimum and maximum sales along with the sales for each category, ready for use in Tableau.
